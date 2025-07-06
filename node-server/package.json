@@ -1,0 +1,15 @@
+{
+  "name": "soulemeet",
+  "version": "1.0.0",
+  "description": "Backend node js service for the soulmeet",
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
