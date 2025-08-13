@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import validator from "validator";
 import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
 
 const  JWT_SECRET = "adbub17bduiqlak";

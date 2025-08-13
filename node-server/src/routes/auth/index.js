@@ -1,5 +1,7 @@
 import express from "express";
 import User from "../../config/db/schemas/userModel.js";
+import validator from "validator";
+import bcrypt from "bcrypt";
 const authroute = express.Router();
 
 authroute.get("/", (req, res) => {
@@ -14,11 +16,11 @@ authroute.post("/signup", async (req, res) => {
             res.status(400).json({ message: "Request body is missing" });
         }
 
-        const { name, email, password, age, gender } = req.body;
+        const { firstName, lastName, email, password, age, gender } = req.body;
         //hash passwrod
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        const user = new User({ name, email, password: hashedPassword, age, gender });
+        const user = new User({ firstName, lastName, email, password: hashedPassword, age, gender });
 
         const savedUser = await user.save();
         const token = await savedUser.getJwt();
@@ -49,7 +51,7 @@ authroute.post("/login",async (req, res) => {
 
         const isPasswordValid = await user.validatePassword(password);
         if (!isPasswordValid) {
-            return res.status(400).json({ message: "Invalid password" });
+            return res.status(400).json({ message: "Invalid credentials" });
         }
         
         const token = await user.getJwt();
