@@ -1,8 +1,19 @@
 import mongoose from "mongoose";
 import validator from "validator";
+import jwt from "jsonwebtoken";
+
+
+const  JWT_SECRET = "adbub17bduiqlak";
 // scjhema defines the structure of a document with constraints, validations, etc
 const userSchema = new mongoose.Schema({
-    name: {
+    firstName: {
+      type: String,
+      required: true,
+      trim: true,
+      minlength: 3,
+      maxlength: 100,
+    },
+    lastName: {
       type: String,
       required: true,
       trim: true,
@@ -33,6 +44,9 @@ const userSchema = new mongoose.Schema({
       min: [18, "Age must be at least 18"],
       max: [90, "Age must be at most 90"],
     },
+    skills:{
+      type: [String],
+    },
     gender:{
       type: String,
       enum: ["male", "female", "other"],
@@ -47,6 +61,18 @@ const userSchema = new mongoose.Schema({
   timestamps: true,
 
 }); 
+
+userSchema.methods.validatePassword = async function (password) {
+    const isPasswordValid = await bcrypt.compare(password, this.password);
+    return isPasswordValid;
+}
+
+userSchema.methods.getJwt = async function () {
+    const token = jwt.sign({ _id: this._id }, JWT_SECRET,{
+      expiresIn: "1d"
+    });
+    return token;
+}
 
 // model is a class with which we construct documents
 const User = mongoose.model("User", userSchema);
