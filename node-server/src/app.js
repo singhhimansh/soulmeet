@@ -1,6 +1,6 @@
 import express from "express";
 import cookieParser from "cookie-parser";
-import connectDB from "./config/database.js";
+import connectDB from "./config/db/database.js";
 // import { initRoutes } from "./routes/loader.js";
 import router from "./routes/index.js";
 
@@ -18,7 +18,7 @@ app.get("/", (req, res) => {
 
 app.use((err, req, res, next) => {
   console.error(err);
-  res.status(500).send("Something went wrong!");
+  res.status(500).send(err?.message || "Something went wrong!");
 });
 
 const startServer = async () => {
