@@ -31,7 +31,7 @@ authroute.post("/signup", async (req, res) => {
     }
 });
 
-authroute.post("/login",async (req, res) => {
+authroute.post("/login", async (req, res) => {
 
     try {
         if (!req.body) {
@@ -40,7 +40,7 @@ authroute.post("/login",async (req, res) => {
 
         const { email, password } = req.body;
 
-        if(!validator.isEmail(email)){
+        if (!validator.isEmail(email)) {
             return res.status(400).json({ message: "Invalid email" });
         }
 
@@ -53,9 +53,9 @@ authroute.post("/login",async (req, res) => {
         if (!isPasswordValid) {
             return res.status(400).json({ message: "Invalid credentials" });
         }
-        
+
         const token = await user.getJwt();
-        res.cookie("token", token);
+        res.cookie("token", token, { expires: new Date(Date.now() + 24 * 60 * 60 * 1000) });
         res.send("Login success");
     } catch (error) {
         res.status(400).json({ message: error?.message });
@@ -64,7 +64,7 @@ authroute.post("/login",async (req, res) => {
 });
 
 authroute.post("/logout", (req, res) => {
-    res.send("Logout");
+    res.clearCookie("token").send("Logout success");
 });
 
 export default authroute;

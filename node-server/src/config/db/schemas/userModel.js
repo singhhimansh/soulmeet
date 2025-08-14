@@ -2,9 +2,9 @@ import mongoose from "mongoose";
 import validator from "validator";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import { ENV } from "../../../../utils/constants.js";
 
 
-const  JWT_SECRET = "adbub17bduiqlak";
 // scjhema defines the structure of a document with constraints, validations, etc
 const userSchema = new mongoose.Schema({
     firstName: {
@@ -69,7 +69,7 @@ userSchema.methods.validatePassword = async function (password) {
 }
 
 userSchema.methods.getJwt = async function () {
-    const token = jwt.sign({ _id: this._id }, JWT_SECRET,{
+    const token = jwt.sign({ _id: this._id }, ENV.JWT_SECRET_KEY,{
       expiresIn: "1d"
     });
     return token;
