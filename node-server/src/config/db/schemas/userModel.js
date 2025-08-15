@@ -40,6 +40,10 @@ const userSchema = new mongoose.Schema({
       required: true,
       trim: true,
     },
+    about: {
+      type: String,
+      trim: true,
+    },
     age :{
       type: Number,
       min: [18, "Age must be at least 18"],
