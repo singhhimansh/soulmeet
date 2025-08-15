@@ -8,10 +8,4 @@ userRoute.get("/", (req, res) => {
   });
 });
 
-userRoute.get("/profile", (req, res) => {
-  res.send({
-    user: req.user
-  });
-});
-
 export default userRoute; 
