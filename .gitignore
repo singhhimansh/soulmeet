@@ -3,6 +3,7 @@ node_modules/
 
 # Node server
 node-server/node_modules
+web/node_modules
 
 # Logs
 logs

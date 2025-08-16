@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import express from "express";
-import ConnectionRequest from "../../config/db/schemas/connectionRequest";
+import ConnectionRequest from "../../config/db/schemas/connectionRequest.js";
 
 // /request/send/:userId
 // /request/accept/:requestId
@@ -71,3 +71,5 @@ requestRouter.patch("/:status/:requestId", async (req, res) => {
   }
 })
 
+
+export default requestRouter;
