@@ -95,7 +95,7 @@ userRoute.get("/feed", async (req, res) => {
     hideUsers.add(user._id.toString());
     const feedData = await User.find({
       _id: { $nin: Array.from(hideUsers) }
-    }).select("firstName lastName email age skills gender _id photoUrl").skip(skip).limit(limit);
+    }).select("firstName lastName email age skills gender _id photoUrl about").skip(skip).limit(limit);
 
     res.send({
       data: feedData,

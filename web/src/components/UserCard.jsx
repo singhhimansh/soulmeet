@@ -10,7 +10,7 @@ const UserCard = ({ user }) => {
   const handleSendRequest = async (status, userId) => {
     try {
       const res = await axios.post(
-        BASE_URL + "/request/send/" + status + "/" + userId,
+        BASE_URL + "/request/" + status + "/" + userId,
         {},
         { withCredentials: true }
       );
@@ -20,8 +20,12 @@ const UserCard = ({ user }) => {
 
   return (
     <div className="card bg-base-300 w-96 shadow-xl">
-      <figure>
-        <img src={user.photoUrl} alt="photo" />
+      <figure className="h-64">
+        <img
+          className="object-cover h-full w-full "
+          src={photoUrl}
+          alt="photo"
+        />
       </figure>
       <div className="card-body">
         <h2 className="card-title">{firstName + " " + lastName}</h2>

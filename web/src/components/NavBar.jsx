@@ -9,9 +9,11 @@ const NavBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  console.log('navbar',user );
+
   const handleLogout = async () => {
     try {
-      await axios.post(BASE_URL + "/logout", {}, { withCredentials: true });
+      await axios.post(BASE_URL + "/auth/logout", {}, { withCredentials: true });
       dispatch(removeUser());
       return navigate("/login");
     } catch (err) {
@@ -24,7 +26,7 @@ const NavBar = () => {
     <div className="navbar bg-base-300">
       <div className="flex-1">
         <Link to="/" className="btn btn-ghost text-xl">
-          👩‍💻 DevTinder
+          👩‍💻 SoulMeet
         </Link>
       </div>
       {user && (

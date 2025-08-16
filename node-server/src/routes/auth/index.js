@@ -16,7 +16,8 @@ authroute.post("/signup", async (req, res) => {
             res.status(400).json({ message: "Request body is missing" });
         }
 
-        const { firstName, lastName, email, password, age, gender } = req.body;
+        const { firstName, lastName, emailId, password, age, gender } = req.body;
+        const email = emailId;
         //hash passwrod
 
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -38,9 +39,10 @@ authroute.post("/login", async (req, res) => {
             res.status(400).json({ message: "Request body is missing" });
         }
 
-        const { email, password } = req.body;
+        const { emailId, password } = req.body;
+        const email = emailId;
 
-        if (!validator.isEmail(email)) {
+        if (!validator.isEmail(emailId)) {
             return res.status(400).json({ message: "Invalid email" });
         }
 
