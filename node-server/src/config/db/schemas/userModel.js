@@ -37,6 +37,7 @@ const userSchema = new mongoose.Schema({
     },
     password: {
       type: String,
+      select: false,
       required: true,
       trim: true,
     },
@@ -51,6 +52,9 @@ const userSchema = new mongoose.Schema({
     },
     skills:{
       type: [String],
+    },
+    photoUrl:{
+      type: String,
     },
     gender:{
       type: String,
@@ -80,6 +84,6 @@ userSchema.methods.getJwt = async function () {
 }
 
 // model is a class with which we construct documents
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model("Users", userSchema);
 
 export default User;

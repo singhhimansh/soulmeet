@@ -44,7 +44,7 @@ authroute.post("/login", async (req, res) => {
             return res.status(400).json({ message: "Invalid email" });
         }
 
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ email }).select('+password');
         if (!user) {
             return res.status(400).json({ message: "User not found" });
         }

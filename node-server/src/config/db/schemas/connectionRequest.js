@@ -9,12 +9,12 @@ import mongoose from "mongoose";
 const connectionRequestSchema = new mongoose.Schema({
     senderId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      ref: "Users",
       required: true,
     },
     recieverId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      ref: "Users",
       required: true,
     },
     status: {

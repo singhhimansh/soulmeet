@@ -20,7 +20,7 @@ userRoute.get("/connections", async (req, res) => {
         { recieverId: user._id, status: "accepted" },
         { senderId: user._id, status: "accepted" }
       ]
-    }).populate("senderId recieverId", { password: 0, createdAt: 0, _v: 0 });
+    }).populate("senderId recieverId", "-password -createdAt -_v");
 
     const connections = connectionsData?.map((connection) => {
       if (connection.senderId._id.toString() === user._id.toString()) {
@@ -58,7 +58,7 @@ userRoute.get("/requests/sent", async (req, res) => {
 
   try {
     const user = req.user;
-    const requestsData = await ConnectionRequest.find({ senderId: user._id, status: "interested" }).populate("recieverId", { password: 0, createdAt: 0, _v: 0 });
+    const requestsData = await ConnectionRequest.find({ senderId: user._id, status: "interested" }).populate("recieverId", "-password -createdAt -_v");
     const requests = requestsData?.map((request) => {
       return request.recieverId;
     });
