@@ -8,26 +8,27 @@ const Requests = () => {
   const requests = useSelector((store) => store.requests);
   const dispatch = useDispatch();
 
-  const reviewRequest = async (status, _id) => {
+  const reviewRequest = async (status, requestId) => {
     try {
-      const res = axios.post(
-        BASE_URL + "/request/review/" + status + "/" + _id,
+      const res = await axios.patch(
+        BASE_URL + "/request/" + status + "/" + requestId,
         {},
         { withCredentials: true }
       );
-      dispatch(removeRequest(_id));
+      dispatch(removeRequest(requestId));
     } catch (err) {}
   };
 
   const fetchRequests = async () => {
     try {
-      const res = await axios.get(BASE_URL + "/user/requests/received", {
+      const res = await axios.get(BASE_URL + "/user/requests/recieved", {
         withCredentials: true,
       });
-
-      dispatch(addRequests(res.data.data));
+      dispatch(addRequests(res?.data?.data));
     } catch (err) {}
   };
+
+  console.log('requests',requests);
 
   useEffect(() => {
     fetchRequests();
@@ -39,22 +40,22 @@ const Requests = () => {
     return <h1 className="flex justify-center my-10"> No Requests Found</h1>;
 
   return (
-    <div className="text-center my-10">
+    <div className="text-center my-10 mx-3">
       <h1 className="text-bold text-white text-3xl">Connection Requests</h1>
 
       {requests.map((request) => {
-        const { _id, firstName, lastName, photoUrl, age, gender, about } =
-          request.fromUserId;
+        const { _id, firstName, lastName, photoUrl, age, gender, about, requestId } =
+          request;
 
         return (
           <div
             key={_id}
-            className=" flex justify-between items-center m-4 p-4 rounded-lg bg-base-300  mx-auto"
+            className="flex m-4 hover:scale-[1.02] transition-all p-4 rounded-lg bg-base-300 md:w-2/3 lg:w-1/2 mx-auto"
           >
-            <div>
+            <div className="flex-shrink-0">
               <img
                 alt="photo"
-                className="w-20 h-20 rounded-full"
+                className="w-12 sm:w-16 md:w-20 aspect-square rounded-full"
                 src={photoUrl}
               />
             </div>
@@ -65,19 +66,20 @@ const Requests = () => {
               {age && gender && <p>{age + ", " + gender}</p>}
               <p>{about}</p>
             </div>
-            <div>
-              <button
-                className="btn btn-primary mx-2"
-                onClick={() => reviewRequest("rejected", request._id)}
-              >
-                Reject
-              </button>
-              <button
-                className="btn btn-secondary mx-2"
-                onClick={() => reviewRequest("accepted", request._id)}
+            <div className="flex flex-col gap-1">
+            <button
+                className="btn btn-secondary "
+                onClick={() => reviewRequest("accepted", requestId)}
               >
                 Accept
               </button>
+              <button
+                className="btn btn-primary"
+                onClick={() => reviewRequest("rejected", requestId)}
+              >
+                Reject
+              </button>
+       
             </div>
           </div>
         );

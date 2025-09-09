@@ -8,7 +8,9 @@ import requestRouter from "./request/index.js";
 
 const router = express.Router();
 
-
+router.use("/hc", (req, res) => {
+  res.send("Hello World!");
+})
 router.use("/auth", auth);
 router.use("/mock", mockRouter);
 router.use("/profile", userAuth ,profileRoute);
