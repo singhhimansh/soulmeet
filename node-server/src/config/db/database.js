@@ -1,11 +1,12 @@
-// getting-started.js
-// const mongoose = require('mongoose');
+
+import dotenv from 'dotenv';
+dotenv.config();
 
 import mongoose from "mongoose";
 
 // main().catch(err => console.log(err));
 
-const MONGO_URI = "mongodb+srv://himsignum:4kJzaZpUEZxBaNEO@mongotest.r1l802q.mongodb.net/";
+const MONGO_URI = process.env.MONGO_URI;
 
 const connectDB = async (db) => {
     try {
