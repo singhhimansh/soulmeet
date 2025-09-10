@@ -25,7 +25,7 @@ authroute.post("/signup", async (req, res) => {
 
         const savedUser = await user.save();
         const token = await savedUser.getJwt();
-        res.cookie("token", token,{secure:true,httpOnly:true, sameSite:"none", expires: new Date(Date.now() + 24 * 60 * 60 * 1000) });
+        res.cookie("token", token, { secure: true, httpOnly: true, sameSite: "none", expires: new Date(Date.now() + 24 * 60 * 60 * 1000) });
         res.send("Signup success");
     } catch (error) {
         res.status(400).json({ message: error?.message });
@@ -57,7 +57,7 @@ authroute.post("/login", async (req, res) => {
         }
 
         const token = await user.getJwt();
-        res.cookie("token", token,{secure:true,httpOnly:true, sameSite:"none", expires: new Date(Date.now() + 24 * 60 * 60 * 1000) });
+        res.cookie("token", token, { secure: true, httpOnly: true, sameSite: "none", expires: new Date(Date.now() + 24 * 60 * 60 * 1000) });
         res.send("Login success");
     } catch (error) {
         res.status(400).json({ message: error?.message });
