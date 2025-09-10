@@ -1,3 +1,5 @@
+import dotenv from 'dotenv';
+dotenv.config();
 import express from "express";
 import cookieParser from "cookie-parser";
 import connectDB from "./config/db/database.js";
@@ -11,12 +13,12 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: process.env.WEB_APP_URL,
   credentials: true,
 }));
 
 // health check
-app.get("/", (req, res, next) => {
+app.get("/hc", (req, res, next) => {
   res.send("Hello World!");
 });
 
