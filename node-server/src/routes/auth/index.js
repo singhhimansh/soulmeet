@@ -25,7 +25,7 @@ authroute.post("/signup", async (req, res) => {
 
         const savedUser = await user.save();
         const token = await savedUser.getJwt();
-        res.cookie("token", token);
+        res.cookie("token", token,{secure:true,httpOnly:true, sameSite:"none"});
         res.send("Signup success");
     } catch (error) {
         res.status(400).json({ message: error?.message });
